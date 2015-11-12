@@ -1,0 +1,13 @@
+<h1>Welcome to  <%=image_tag("twitter-3.png", alt: "Twiiter")%> application only authentication</h1>
+<%= link_to 'Interests', controller: 'interests' %>
+<h3>So we are already connected with the Twitter please create new Interest or check already created ones</h3>
+
+<h4>and here are 30 of @Cristiano's latest tweets: (because, why not?) </h4>
+
+<ul>
+        <% TwitterApi.get_ronaldo_tweets.each do |tweet|%>
+        <li><%= parsed_tweet tweet %></li>
+        <% end %>
+</ul>
+
+

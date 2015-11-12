@@ -1,0 +1,40 @@
+<p>
+  <strong>Username(screen_name):</strong>
+  <%= @interest.screen_name %>
+</p>
+ 
+<p>
+  <strong>Hashtags:</strong>
+  <%= @interest.hashtags %>
+</p>
+
+<p>
+  <strong>User mentions:</strong>
+  <%= @interest.user_mentions %>
+</p>
+
+
+
+
+<h4>and here are 30 of @<%= @interest.screen_name %>'s latest tweets: </h4>
+
+<p><%= @interest.hashtags %></p>
+<p><%= @interest.user_mentions %></p>
+
+<ul>
+        <% TwitterApi.get_user_tweets(@interest.screen_name).each do |tweet|%>
+        <% if @interest.hashtags.split(" ").any? { |hashtag| tweet.text.downcase().include?(hashtag) }  %>
+          <li><%= parsed_tweet tweet%></li>
+          <% end %>
+        <% end %>
+</ul>
+
+<ul>
+        <% TwitterApi.get_user_tweets(@interest.screen_name).each do |tweet|%>
+        <% if @interest.user_mentions.split(" ").any? { |user| tweet.text.downcase().include?(user) }  %>
+          <li><%= parsed_tweet tweet%></li>
+          <% end %>
+        <% end %>
+</ul>
+<%= link_to 'Edit', edit_interest_path(@interest) %> |
+<%= link_to 'Back', interests_path %>
