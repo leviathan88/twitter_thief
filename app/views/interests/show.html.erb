@@ -1,5 +1,5 @@
 <p>
-  <strong>Username(screen_name):</strong>
+  <strong>Username:</strong>
   <%= @interest.screen_name %>
 </p>
  
@@ -16,22 +16,20 @@
 
 
 
-<h4>and here are 30 of @<%= @interest.screen_name %>'s latest tweets: </h4>
-
-<p><%= @interest.hashtags %></p>
-<p><%= @interest.user_mentions %></p>
-
+<h4>here are <%= @interest.screen_name %>'s latest tweets based on your hashtags: </h4>
 <ul>
         <% TwitterApi.get_user_tweets(@interest.screen_name).each do |tweet|%>
-        <% if @interest.hashtags.split(" ").any? { |hashtag| tweet.text.downcase().include?(hashtag) }  %>
+        <% if @interest.hashtags.split(" ").any? { |hashtag| tweet.text.downcase().include?(hashtag.downcase() + " ") }  %>
           <li><%= parsed_tweet tweet%></li>
           <% end %>
         <% end %>
 </ul>
 
+<h4>and here are<%= @interest.screen_name %>'s latest tweets based on your user mentions: </h4>
+
 <ul>
         <% TwitterApi.get_user_tweets(@interest.screen_name).each do |tweet|%>
-        <% if @interest.user_mentions.split(" ").any? { |user| tweet.text.downcase().include?(user) }  %>
+        <% if @interest.user_mentions.split(" ").any? { |user| tweet.text.downcase().include?(user.downcase()) }  %>
           <li><%= parsed_tweet tweet%></li>
           <% end %>
         <% end %>

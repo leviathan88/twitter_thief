@@ -15,10 +15,11 @@ module ApplicationHelper
     _parsed_tweet.html_safe
   end
   
+  #this is just for debugging purposes
   def parse_tweet_with_user_mentions tweet
       if tweet.text.downcase().include?('@reebok')
           parsed_tweet tweet
       end
-      
   end
+  
 end
