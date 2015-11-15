@@ -1,11 +1,19 @@
 class InterestsController < ApplicationController
+    before_action :get_interest, except: [:index, :create, :home]
+    respond_to :html, :json
+    
     def index
-        @interests = Interest.all    
+        @interest = Interest.all
+        respond_with(@interests) do |format|
+        format.json { render :json => @interest.as_json }
+        format.html
+        end
     end
     
     def show
-        @interest = Interest.find(params[:id])
+        respond_with(@interest.as_json)
     end
+    
     
     def new
        @interest = Interest.new
@@ -15,6 +23,8 @@ class InterestsController < ApplicationController
         @interest = Interest.find(params[:id])
     end
     
+#this create action method was used before angular came into the picture
+=begin
     def create
         @interest = Interest.new(interest_params)
         
@@ -24,27 +34,43 @@ class InterestsController < ApplicationController
             render 'new'
         end
     end
+=end
+
+    def create
+       @interest = Interest.new(interest_params) 
+        if @interest.save
+            render json: @interest.as_json, status: :ok
+        else
+            render json: {interest: @interest.errors, status: :no_content}
+        end
+    end
     
     def update
-          @interest = Interest.find(params[:id])
-         
-          if @interest.update(interest_params)
-            redirect_to @interest
+          if @interest.update_attributes(interest_params)
+            render json: @interest.as_json, status: :ok
           else
-            render 'edit'
+             render json: {interest: @interest.errors, status: :unprocessable_entity}
           end
     end
     
+    
+    
     def destroy
-         @interest = Interest.find(params[:id])
          @interest.destroy
-         
-         redirect_to interests_path
+         render json: {status: :ok}
+    end
+    
+    def home
     end
     
     
     private
-      def interest_params
-        params.require(:interest).permit(:screen_name, :hashtags, :user_mentions)
-      end
+        def interest_params
+            params.fetch(:interest, {}).permit(:screen_name, :hashtags, :user_mentions)
+        end
+      
+        def get_interest
+            @interest = Interest.find(params[:id])
+            render json: {status: :not_found} unless @interest
+        end
 end

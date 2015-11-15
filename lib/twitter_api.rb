@@ -3,6 +3,7 @@ class TwitterApi
     def self.get_ronaldo_tweets
         client.user_timeline('Cristiano', count: 30, include_rts: false)
     end
+   
     
      def self.get_conor_tweets
         client.user_timeline('TheNotoriousMMA', count: 200, include_rts: false)

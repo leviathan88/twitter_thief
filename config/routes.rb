@@ -1,12 +1,27 @@
 Rails.application.routes.draw do
-  get 'home/index'
+
+  
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
-  resources :interests
+  
+  
+  
+  resources :interests do
+  resources :tweets, only: :index
+end
+
+ 
+  
 
   # You can have the root of your site routed with "root"
-   root 'home#index'
+  
+  #this was my entry point before integrating angularjs
+  #root 'home#index'
+  
+  #entry point for angularjs
+  #root 'interests#home'
+  root 'interests#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
