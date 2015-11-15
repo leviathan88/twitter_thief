@@ -13,6 +13,9 @@
  *= require_tree .
  *= require_self
  */
+ * {
+	margin: 0;
+}
  
  div {
   margin: 20px;
@@ -44,4 +47,53 @@ li {
 li:hover {
   background: #eee;
   cursor: pointer;
+}
+
+html, body {
+	 height: 100%;
+}
+
+.container,
+.container-fluid {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	margin: 0 auto -4em;
+}
+
+footer,
+.footer {
+	height: 4em;
+}
+
+.twitterer {
+      font: bold 12px/19px Helvetica, Arial, sans-serif;
+  text-decoration: none;
+  color: #333;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
+  white-space: nowrap;
+}
+
+.style-seven {
+    height: 30px;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px 0 0 0;
+    border-radius: 20px;
+}
+.style-seven:before { /* Not really supposed to work, but does */
+    display: block;
+    content: "";
+    height: 30px;
+    margin-top: -31px;
+    border-style: solid;
+    border-color: black;
+    border-width: 0 0 1px 0;
+    border-radius: 20px;
+}
+
+.style-three {
+    border: 0;
+    border-bottom: 1px dashed #ccc;
+    background: #999;
 }
